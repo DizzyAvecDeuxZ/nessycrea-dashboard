@@ -53,7 +53,7 @@ interface Order {
   contacts: {
     username: string
     full_name?: string
-  }
+  } | null
 }
 
 export default function OrdersPage() {
@@ -93,8 +93,16 @@ export default function OrdersPage() {
 
       if (error) throw error
 
-      setOrders(data || [])
-      setFilteredOrders(data || [])
+      // Transform data: Supabase returns contacts as array, but Order type expects object
+      const transformedData = data?.map(order => ({
+        ...order,
+        contacts: Array.isArray(order.contacts) && order.contacts.length > 0
+          ? order.contacts[0]
+          : null
+      })) || []
+
+      setOrders(transformedData)
+      setFilteredOrders(transformedData)
     } catch (error) {
       console.error('Error fetching orders:', error)
     } finally {

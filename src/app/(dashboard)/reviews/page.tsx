@@ -36,10 +36,10 @@ interface Review {
   contacts: {
     username: string
     full_name?: string
-  }
-  orders?: {
+  } | null
+  orders: {
     order_number: string
-  }
+  } | null
 }
 
 export default function ReviewsPage() {
@@ -85,8 +85,19 @@ export default function ReviewsPage() {
 
       if (error) throw error
 
-      setReviews(data || [])
-      setFilteredReviews(data || [])
+      // Transform data: Supabase returns contacts and orders as arrays, but Review type expects objects
+      const transformedData = data?.map(review => ({
+        ...review,
+        contacts: Array.isArray(review.contacts) && review.contacts.length > 0
+          ? review.contacts[0]
+          : null,
+        orders: Array.isArray(review.orders) && review.orders.length > 0
+          ? review.orders[0]
+          : null
+      })) || []
+
+      setReviews(transformedData)
+      setFilteredReviews(transformedData)
     } catch (error) {
       console.error('Error fetching reviews:', error)
     } finally {

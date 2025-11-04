@@ -56,10 +56,10 @@ interface Payment {
   contacts: {
     username: string
     full_name?: string
-  }
-  orders?: {
+  } | null
+  orders: {
     order_number: string
-  }
+  } | null
 }
 
 export default function PaymentsPage() {
@@ -106,8 +106,19 @@ export default function PaymentsPage() {
 
       if (error) throw error
 
-      setPayments(data || [])
-      setFilteredPayments(data || [])
+      // Transform data: Supabase returns contacts and orders as arrays, but Payment type expects objects
+      const transformedData = data?.map(payment => ({
+        ...payment,
+        contacts: Array.isArray(payment.contacts) && payment.contacts.length > 0
+          ? payment.contacts[0]
+          : null,
+        orders: Array.isArray(payment.orders) && payment.orders.length > 0
+          ? payment.orders[0]
+          : null
+      })) || []
+
+      setPayments(transformedData)
+      setFilteredPayments(transformedData)
     } catch (error) {
       console.error('Error fetching payments:', error)
     } finally {
