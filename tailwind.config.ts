@@ -16,6 +16,29 @@ const config: Config = {
           brown: '#8B7355',
           mint: '#A8D5BA',
         },
+        dashboard: {
+          // Order status colors (high-contrast for black bg)
+          delivered: '#4BFF36',
+          shipped: '#1ECDE6',
+          processing: '#5E57FF',
+          pending: '#FF9535',
+          cancelled: '#F23CA6',
+          failed: '#FF004D',
+
+          // Chart colors
+          revenue: '#1ECDE6',
+          grid: '#2A2A2A',
+
+          // Product colors
+          stockHigh: '#4BFF36',
+          stockMedium: '#FF9535',
+          stockLow: '#FF004D',
+
+          // Trend colors
+          up: '#4BFF36',
+          down: '#FF004D',
+          neutral: '#9CA3AF',
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -68,16 +91,51 @@ const config: Config = {
           '0%': { opacity: '0', transform: 'translateY(10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        'slide-in-right': {
+          '0%': { opacity: '0', transform: 'translateX(-10px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
         'fade-in': {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        'fade-in-up': {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'scale-in': {
+          '0%': { opacity: '0', transform: 'scale(0.95)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        'shimmer': {
+          '0%': { backgroundPosition: '-1000px 0' },
+          '100%': { backgroundPosition: '1000px 0' },
+        },
+        'pulse-soft': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.8' },
+        },
+        'bounce-soft': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-5px)' },
+        },
+        'glow': {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(155, 138, 122, 0.2)' },
+          '50%': { boxShadow: '0 0 30px rgba(155, 138, 122, 0.4)' },
         },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'slide-in': 'slide-in 0.3s ease-out',
+        'slide-in-right': 'slide-in-right 0.3s ease-out',
         'fade-in': 'fade-in 0.2s ease-out',
+        'fade-in-up': 'fade-in-up 0.4s ease-out',
+        'scale-in': 'scale-in 0.3s ease-out',
+        'shimmer': 'shimmer 2s linear infinite',
+        'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
+        'bounce-soft': 'bounce-soft 1s ease-in-out infinite',
+        'glow': 'glow 2s ease-in-out infinite',
       },
     },
   },

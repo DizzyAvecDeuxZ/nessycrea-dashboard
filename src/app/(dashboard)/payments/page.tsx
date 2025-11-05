@@ -41,6 +41,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { formatCurrency } from '@/lib/utils'
+import { log } from '@/lib/logger'
+import type { ComponentType } from 'react'
 
 interface Payment {
   id: string
@@ -93,34 +95,37 @@ export default function PaymentsPage() {
           payer_email,
           completed_at,
           created_at,
-          contacts (
-            username,
-            full_name
-          ),
-          orders (
-            order_number
+          orders!inner (
+            order_number,
+            contacts (
+              username,
+              full_name
+            )
           )
         `)
         .order('created_at', { ascending: false })
         .limit(100)
 
-      if (error) throw error
+      if (error) {
+        console.error('Supabase error:', error)
+        throw error
+      }
 
-      // Transform data: Supabase returns contacts and orders as arrays, but Payment type expects objects
+      // Transform data: Extract contacts from orders and flatten structure
       const transformedData = data?.map(payment => ({
         ...payment,
-        contacts: Array.isArray(payment.contacts) && payment.contacts.length > 0
-          ? payment.contacts[0]
-          : null,
         orders: Array.isArray(payment.orders) && payment.orders.length > 0
           ? payment.orders[0]
+          : null,
+        contacts: Array.isArray(payment.orders) && payment.orders.length > 0 && payment.orders[0].contacts
+          ? (Array.isArray(payment.orders[0].contacts) ? payment.orders[0].contacts[0] : payment.orders[0].contacts)
           : null
       })) || []
 
       setPayments(transformedData)
       setFilteredPayments(transformedData)
     } catch (error) {
-      console.error('Error fetching payments:', error)
+      log.error('Erreur lors du chargement des paiements', error)
     } finally {
       setLoading(false)
     }
@@ -167,7 +172,7 @@ export default function PaymentsPage() {
   function getStatusBadge(status: string) {
     const statusConfig: Record<
       string,
-      { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline'; icon: any }
+      { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline'; icon: ComponentType<{ className?: string }> }
     > = {
       completed: { label: 'Complété', variant: 'default', icon: CheckCircle2 },
       pending: { label: 'En attente', variant: 'secondary', icon: Clock },

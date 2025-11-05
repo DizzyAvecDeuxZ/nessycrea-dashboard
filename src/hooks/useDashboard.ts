@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import type { DailySales, Activity, Review, OrderItem } from '@/lib/supabase'
+import { log } from '@/lib/logger'
+import { transformOrderItemWithOrder } from '@/lib/supabase-helpers'
+import type { SupabaseOrderItemWithOrder } from '@/lib/types'
 
 export interface DashboardStats {
   totalMessages: number
@@ -25,6 +28,12 @@ export interface ProductData {
 export interface OrderStatusData {
   name: string
   value: number
+}
+
+export interface RatingDistribution {
+  rating: number
+  count: number
+  percentage: number
 }
 
 async function fetchDashboardStats(): Promise<DashboardStats> {
@@ -58,7 +67,7 @@ async function fetchRevenueData(): Promise<RevenueData[]> {
 
   const { data } = await supabase
     .from('daily_sales')
-    .select('sale_date, total_revenue')
+    .select('sale_date, revenue')
     .gte('sale_date', thirtyDaysAgo.toISOString())
     .order('sale_date', { ascending: true })
 
@@ -66,32 +75,50 @@ async function fetchRevenueData(): Promise<RevenueData[]> {
 
   return data.map(d => ({
     date: new Date(d.sale_date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' }),
-    'Chiffre d\'affaires': Number(d.total_revenue)
+    'Chiffre d\'affaires': Number(d.revenue)
   }))
 }
 
 async function fetchTopProducts(): Promise<ProductData[]> {
-  const { data: orders } = await supabase
-    .from('orders')
-    .select('items')
-    .in('status', ['paid', 'processing', 'shipped', 'delivered'])
+  try {
+    const { data: orderItems, error } = await supabase
+      .from('order_items')
+      .select(`
+        product_name,
+        quantity,
+        order_id,
+        orders!inner(status)
+      `)
 
-  if (!orders) return []
-
-  const productCounts: Record<string, number> = {}
-  orders.forEach(order => {
-    if (order.items && Array.isArray(order.items)) {
-      (order.items as OrderItem[]).forEach((item) => {
-        const name = item.product_name || 'Produit'
-        productCounts[name] = (productCounts[name] || 0) + (item.quantity || 1)
-      })
+    if (error) {
+      log.supabaseError('fetchTopProducts', error)
+      return []
     }
-  })
 
-  return Object.entries(productCounts)
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 5)
-    .map(([name, count]) => ({ name, 'Ventes': count }))
+    if (!orderItems) return []
+
+    // Filtrer uniquement les commandes payées/traitées
+    const filteredItems = orderItems.filter((item) => {
+      const typedItem = item as unknown as SupabaseOrderItemWithOrder
+      return typedItem.orders?.status && ['paid', 'processing', 'shipped', 'delivered'].includes(typedItem.orders.status)
+    })
+
+    const productCounts: Record<string, number> = {}
+    filteredItems.forEach((item) => {
+      const typedItem = item as unknown as SupabaseOrderItemWithOrder
+      const transformedItem = transformOrderItemWithOrder(typedItem)
+      const name = transformedItem.product_name || 'Produit'
+      productCounts[name] = (productCounts[name] || 0) + transformedItem.quantity
+    })
+
+    return Object.entries(productCounts)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 5)
+      .map(([name, count]) => ({ name, 'Ventes': count }))
+  } catch (error) {
+    log.error('Erreur lors du chargement des produits top', error)
+    return []
+  }
 }
 
 async function fetchOrderStatus(): Promise<OrderStatusData[]> {
@@ -122,20 +149,74 @@ async function fetchOrderStatus(): Promise<OrderStatusData[]> {
 }
 
 async function fetchRecentActivity(): Promise<Activity[]> {
-  const { data } = await supabase
-    .from('messages')
-    .select(`
-      id,
-      message_text,
-      direction,
-      status,
-      received_at,
-      contacts (username)
-    `)
-    .order('received_at', { ascending: false })
-    .limit(5)
+  try {
+    const { data, error } = await supabase
+      .from('messages')
+      .select(`
+        id,
+        message_text,
+        direction,
+        status,
+        received_at,
+        contacts (username)
+      `)
+      .order('received_at', { ascending: false })
+      .limit(5)
 
-  return (data as unknown as Activity[]) || []
+    if (error) {
+      log.supabaseError('fetchRecentActivity', error)
+      return []
+    }
+
+    // Transformer les données pour correspondre au type Activity
+    const transformedData = (data || []).map((item) => ({
+      ...item,
+      contacts: Array.isArray(item.contacts) && item.contacts.length > 0
+        ? item.contacts[0]
+        : (item.contacts || null),
+    }))
+
+    return (transformedData as Activity[]) || []
+  } catch (error) {
+    log.error('Erreur lors du chargement de l\'activité récente', error)
+    return []
+  }
+}
+
+async function fetchRatingDistribution(): Promise<RatingDistribution[]> {
+  try {
+    const { data, error } = await supabase
+      .from('reviews')
+      .select('rating')
+
+    if (error) {
+      log.supabaseError('fetchRatingDistribution', error)
+      return []
+    }
+
+    if (!data || data.length === 0) {
+      return []
+    }
+
+    const total = data.length
+    const distribution: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+
+    data.forEach((review) => {
+      const rating = review.rating
+      if (rating >= 1 && rating <= 5) {
+        distribution[rating] = (distribution[rating] || 0) + 1
+      }
+    })
+
+    return [5, 4, 3, 2, 1].map((rating) => ({
+      rating,
+      count: distribution[rating] || 0,
+      percentage: total > 0 ? ((distribution[rating] || 0) / total) * 100 : 0,
+    }))
+  } catch (error) {
+    log.error('Erreur lors du chargement de la distribution des notes', error)
+    return []
+  }
 }
 
 export function useDashboardStats() {
@@ -175,5 +256,13 @@ export function useRecentActivity() {
     queryKey: ['dashboard', 'activity'],
     queryFn: fetchRecentActivity,
     staleTime: 1 * 60 * 1000, // 1 minute
+  })
+}
+
+export function useRatingDistribution() {
+  return useQuery({
+    queryKey: ['dashboard', 'ratingDistribution'],
+    queryFn: fetchRatingDistribution,
+    staleTime: 5 * 60 * 1000, // 5 minutes
   })
 }

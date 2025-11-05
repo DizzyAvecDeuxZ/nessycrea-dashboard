@@ -1,6 +1,7 @@
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Header } from '@/components/layout/Header'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { AnimatedGradientBg } from '@/components/magic'
 
 export default function DashboardLayout({
   children,
@@ -9,12 +10,15 @@ export default function DashboardLayout({
 }) {
   return (
     <ErrorBoundary>
-      <div className="flex h-screen overflow-hidden">
+      <div className="relative flex h-screen overflow-hidden">
+        {/* Animated Background */}
+        <AnimatedGradientBg variant="subtle" />
+
         {/* Sidebar */}
         <Sidebar />
 
         {/* Main content */}
-        <div className="flex flex-1 flex-col overflow-hidden lg:ml-64">
+        <div className="relative z-10 flex flex-1 flex-col overflow-hidden lg:ml-64">
           <Header />
 
           <main className="flex-1 overflow-y-auto">

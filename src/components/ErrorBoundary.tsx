@@ -25,6 +25,8 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // Note: Le logger ne peut pas être utilisé ici car c'est un composant de classe
+    // et les imports peuvent poser problème. On garde console.error pour l'instant.
     console.error('Error caught by boundary:', error, errorInfo)
   }
 

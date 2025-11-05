@@ -114,4 +114,41 @@
   .shadow-glow {
     box-shadow: 0 0 20px rgba(236, 99, 172, 0.2);
   }
+
+  /* Styles optimis?s pour les graphiques Tremor - performance am?lior?e */
+  /* Utilisation de classes sp?cifiques Tremor uniquement */
+  .tremor-AreaChart path {
+    fill: #FFD700;
+    stroke: #FFD700;
+    opacity: 0.8;
+  }
+  
+  .tremor-AreaChart path:hover {
+    opacity: 1;
+  }
+
+  .tremor-BarChart rect {
+    fill: #E8C4D8;
+  }
+  
+  .tremor-BarChart rect:hover {
+    fill: #FFB6C1;
+    opacity: 0.9;
+  }
+
+  /* DonutChart - couleurs NessyCrea */
+  .tremor-DonutChart path:nth-of-type(1) { fill: #E8C4D8; }
+  .tremor-DonutChart path:nth-of-type(2) { fill: #FFD700; }
+  .tremor-DonutChart path:nth-of-type(3) { fill: #A8D5BA; }
+  .tremor-DonutChart path:nth-of-type(4) { fill: #FFB6C1; }
+  .tremor-DonutChart path:nth-of-type(5) { fill: #8B7355; }
+  .tremor-DonutChart path:nth-of-type(6) { fill: #FFF5E6; }
+  .tremor-DonutChart path:nth-of-type(7) { fill: #FFC0CB; }
+
+  /* Textes Tremor - styles minimaux pour performance */
+  .tremor-ChartContainer svg text,
+  .tremor-ChartArea svg text,
+  .tremor-Axis text {
+    fill: hsl(var(--foreground));
+  }
 }

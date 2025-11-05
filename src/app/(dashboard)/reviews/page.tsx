@@ -22,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { log } from '@/lib/logger'
 
 interface Review {
   id: string

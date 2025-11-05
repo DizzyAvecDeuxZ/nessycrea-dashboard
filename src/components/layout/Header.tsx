@@ -1,7 +1,6 @@
 'use client'
 
-import { Bell, Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
+import { Bell } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -13,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { CommandPalette } from '@/components/advanced'
 
 export function Header() {
   const notificationsCount = 3
@@ -22,16 +22,9 @@ export function Header() {
       {/* Espace pour le bouton mobile (géré par Sidebar) */}
       <div className="lg:hidden w-10" />
 
-      {/* Barre de recherche */}
+      {/* Command Palette (Cmd+K) */}
       <div className="flex-1 max-w-2xl">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder="Rechercher des contacts, commandes, messages..."
-            className="pl-10"
-          />
-        </div>
+        <CommandPalette />
       </div>
 
       {/* Actions */}

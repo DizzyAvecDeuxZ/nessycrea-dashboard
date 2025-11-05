@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { supabase } from '@/lib/supabase'
+import { log } from '@/lib/logger'
 
 interface NotificationState {
   unreadMessages: number
@@ -43,8 +44,9 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
         lastUpdated: new Date(),
         isLoading: false,
       })
+      log.debug(`Notifications mises ? jour: ${unreadCount || 0} messages non lus, ${pendingCount || 0} commandes en attente`)
     } catch (error) {
-      console.error('Error fetching notifications:', error)
+      log.error('Erreur lors du chargement des notifications', error)
       set({ isLoading: false })
     }
   },
