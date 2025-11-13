@@ -6,6 +6,12 @@
 [![Zustand](https://img.shields.io/badge/Zustand-5.0.2-purple)](https://github.com/pmndrs/zustand)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+## 🚀 Déploiement Rapide
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/DizzyAvecDeuxZ/nessycrea-dashboard)
+
+**Cliquez sur le bouton ci-dessus pour déployer en production en un clic !**
+
 ## 🎨 Overview
 
 A **production-ready**, modern, responsive admin dashboard built with **Next.js 14**, **TypeScript**, **Tailwind CSS**, and **Supabase**. This dashboard provides advanced features for managing NessyCrea's Instagram DM business.
