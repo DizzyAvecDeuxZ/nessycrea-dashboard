@@ -96,13 +96,13 @@ export function Sidebar() {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed top-0 left-0 z-40 h-screen w-64 bg-card/95 backdrop-blur-xl border-r border-border shadow-2xl transition-transform lg:translate-x-0',
+          'fixed top-0 left-0 z-40 h-screen w-64 bg-card backdrop-blur-xl border-r border-border transition-transform lg:translate-x-0',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         <div className="flex h-full flex-col">
           {/* Logo */}
-          <div className="flex h-16 items-center border-b border-white/10 px-6">
+          <div className="flex h-16 items-center border-b border-border px-6">
             <Link href="/dashboard" className="flex items-center gap-2 group">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold group-hover:scale-110 transition-transform">
                 N

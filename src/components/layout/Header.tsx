@@ -18,7 +18,7 @@ export function Header() {
   const notificationsCount = 3
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-border bg-card/80 backdrop-blur-xl px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-border bg-card backdrop-blur-xl px-6">
       {/* Espace pour le bouton mobile (géré par Sidebar) */}
       <div className="lg:hidden w-10" />
 

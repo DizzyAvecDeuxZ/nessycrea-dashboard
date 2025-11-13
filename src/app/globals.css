@@ -4,34 +4,34 @@
 
 @layer base {
   :root {
-    /* NessyCrea Theme - Vraies couleurs du site */
-    --background: 60 100% 99%;
-    --foreground: 193 51% 15%;
+    /* NessyCrea Theme - Couleurs exactes du site principal */
+    --background: 60 60% 98%;        /* #FCFCF9 - Cream background */
+    --foreground: 193 51% 15%;       /* #13343B - Slate text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 193 51% 15%;
+    --card: 60 100% 99%;             /* #FFFFFB - Cream surface */
+    --card-foreground: 193 51% 15%;  /* #13343B - Slate text */
 
     --popover: 0 0% 100%;
     --popover-foreground: 193 51% 15%;
 
-    --primary: 188 62% 34%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 188 62% 34%;          /* #21808D - Teal */
+    --primary-foreground: 60 60% 98%;
 
-    --secondary: 33 15% 34%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 33 15% 31%;         /* #5E5240 - Brown */
+    --secondary-foreground: 60 60% 98%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 193 7% 41%;
+    --muted: 0 0% 96%;               /* #F5F5F5 - Light gray */
+    --muted-foreground: 193 7% 41%;  /* #626C71 - Slate 500 */
 
-    --accent: 17 56% 42%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 17 56% 42%;            /* #A84B2F - Orange */
+    --accent-foreground: 60 60% 98%;
 
-    --destructive: 351 83% 42%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 351 83% 42%;      /* #C0152F - Red */
+    --destructive-foreground: 60 60% 98%;
 
-    --border: 0 0% 96%;
+    --border: 33 15% 31% / 0.2;      /* Brown with opacity */
     --input: 0 0% 96%;
-    --ring: 188 62% 34%;
+    --ring: 188 62% 34%;             /* Teal focus ring */
 
     --radius: 0.75rem;
   }
@@ -56,9 +56,9 @@
 @layer components {
   /* NessyCrea glassmorphism - Light theme */
   .glass-card {
-    background: rgba(250, 248, 243, 0.95);
+    background: rgba(252, 252, 249, 0.95);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(212, 197, 169, 0.3);
+    border: 1px solid rgba(94, 82, 64, 0.2);
     box-shadow: 0 8px 32px 0 rgba(94, 82, 64, 0.08);
   }
 
@@ -74,14 +74,14 @@
 
   .card-hover:hover {
     transform: translateY(-2px);
-    border-color: rgba(44, 95, 93, 0.3);
-    box-shadow: 0 12px 24px rgba(44, 95, 93, 0.12);
+    border-color: rgba(33, 128, 141, 0.3);
+    box-shadow: 0 12px 24px rgba(33, 128, 141, 0.12);
   }
 
-  /* Single accent background - Beige/Teal */
+  /* Single accent background - Brown/Teal */
   .bg-accent-subtle {
-    background: rgba(212, 197, 169, 0.15);
-    border: 1px solid rgba(212, 197, 169, 0.3);
+    background: rgba(94, 82, 64, 0.12);
+    border: 1px solid rgba(94, 82, 64, 0.2);
   }
 
   /* Animation de slide-in */
