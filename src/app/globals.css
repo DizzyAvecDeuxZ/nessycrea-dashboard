@@ -4,36 +4,67 @@
 
 @layer base {
   :root {
-    /* NessyCrea Theme - Couleurs EXACTES extraites du site */
-    --background: 32 29% 95%;        /* rgb(245, 241, 237) - Beige clair du site */
-    --foreground: 25 22% 37%;        /* rgb(107, 83, 68) - Brown du logo */
+    /* NessyCrea Theme - Couleurs VRAIES du site principal (Light Mode) */
+    --background: 32 29% 95%;        /* rgb(245, 241, 237) - Beige chaud du site */
+    --foreground: 25 22% 37%;        /* rgb(107, 83, 68) - Marron du logo */
 
     --card: 0 0% 100%;               /* Blanc pour les cartes */
-    --card-foreground: 25 22% 37%;   /* Brown text */
+    --card-foreground: 25 22% 37%;   /* Marron */
 
     --popover: 0 0% 100%;
     --popover-foreground: 25 22% 37%;
 
-    --primary: 188 59% 34%;          /* rgb(33, 128, 141) - Teal du site */
+    --primary: 15 56% 42%;           /* rgba(168, 75, 47, 1) - Orange terracotta du bouton */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 25 22% 37%;         /* rgb(107, 83, 68) - Brown */
+    --secondary: 25 22% 37%;         /* rgb(107, 83, 68) - Marron */
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted-foreground: 25 22% 37% / 0.7;
 
-    --accent: 17 56% 42%;            /* Orange accent */
+    --accent: 15 56% 42%;            /* rgba(168, 75, 47, 1) - Orange */
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 351 83% 42%;
+    --destructive: 351 81% 42%;      /* rgba(192, 21, 47, 1) - Red */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 25 22% 37% / 0.15;     /* Brown with low opacity */
+    --border: 25 22% 37% / 0.15;     /* Marron avec opacité */
     --input: 0 0% 96%;
-    --ring: 188 59% 34%;
+    --ring: 15 56% 42%;              /* Orange pour le focus */
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
+  }
+
+  /* Dark mode colors (from main site) */
+  .dark {
+    --background: 180 3% 13%;        /* rgba(31, 33, 33, 1) - Charcoal 700 */
+    --foreground: 0 0% 96%;          /* rgba(245, 245, 245, 1) - Gray 200 */
+
+    --card: 0 2% 15%;                /* rgba(38, 40, 40, 1) - Charcoal 800 */
+    --card-foreground: 0 0% 96%;
+
+    --popover: 0 2% 15%;
+    --popover-foreground: 0 0% 96%;
+
+    --primary: 186 60% 49%;          /* rgba(50, 184, 198, 1) - Teal 300 */
+    --primary-foreground: 188 54% 15%;
+
+    --secondary: 30 2% 47% / 0.15;   /* rgba(119, 124, 124, 0.15) - Gray 400 */
+    --secondary-foreground: 0 0% 96%;
+
+    --muted: 30 2% 47% / 0.15;
+    --muted-foreground: 1 1% 66%;    /* rgba(167, 169, 169, 0.7) - Gray 300 */
+
+    --accent: 15 64% 64%;            /* rgba(230, 129, 97, 1) - Orange 400 */
+    --accent-foreground: 188 54% 15%;
+
+    --destructive: 358 100% 67%;     /* rgba(255, 84, 89, 1) - Red 400 */
+    --destructive-foreground: 0 0% 96%;
+
+    --border: 30 2% 47% / 0.3;
+    --input: 30 2% 47% / 0.15;
+    --ring: 186 60% 49%;
   }
 }
 
@@ -54,12 +85,12 @@
 }
 
 @layer components {
-  /* NessyCrea glassmorphism - Light theme */
+  /* NessyCrea glassmorphism - Light theme (from main site) */
   .glass-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 253, 0.95);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(107, 83, 68, 0.15);
-    box-shadow: 0 8px 32px 0 rgba(107, 83, 68, 0.06);
+    border: 1px solid rgba(94, 82, 64, 0.12);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
   }
 
   /* Subtle text accent */
@@ -67,21 +98,21 @@
     color: hsl(var(--foreground));
   }
 
-  /* Subtle hover effect - NessyCrea colors */
+  /* Subtle hover effect - orange/marron chaud */
   .card-hover {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .card-hover:hover {
     transform: translateY(-2px);
-    border-color: rgba(33, 128, 141, 0.3);
-    box-shadow: 0 12px 24px rgba(33, 128, 141, 0.1);
+    border-color: rgba(168, 75, 47, 0.3);
+    box-shadow: 0 10px 15px -3px rgba(168, 75, 47, 0.08), 0 4px 6px -2px rgba(107, 83, 68, 0.04);
   }
 
-  /* Single accent background - Brown */
+  /* Single accent background - Brown (from main site) */
   .bg-accent-subtle {
-    background: rgba(107, 83, 68, 0.08);
-    border: 1px solid rgba(107, 83, 68, 0.15);
+    background: rgba(94, 82, 64, 0.12);
+    border: 1px solid rgba(94, 82, 64, 0.12);
   }
 
   /* Animation de slide-in */
@@ -115,11 +146,11 @@
     box-shadow: 0 0 20px rgba(236, 99, 172, 0.2);
   }
 
-  /* Styles optimisés pour les graphiques Tremor - NessyCrea palette */
+  /* Styles optimisés pour les graphiques Tremor - Palette beige/orange/marron */
   /* Utilisation de classes spécifiques Tremor uniquement */
   .tremor-AreaChart path {
-    fill: #21808D;
-    stroke: #21808D;
+    fill: rgba(168, 75, 47, 1);
+    stroke: rgba(168, 75, 47, 1);
     opacity: 0.8;
   }
 
@@ -128,22 +159,22 @@
   }
 
   .tremor-BarChart rect {
-    fill: #21808D;
+    fill: rgba(168, 75, 47, 1);
   }
 
   .tremor-BarChart rect:hover {
-    fill: #13343B;
+    fill: rgba(107, 83, 68, 1);
     opacity: 0.9;
   }
 
-  /* DonutChart - couleurs NessyCrea harmonisées */
-  .tremor-DonutChart path:nth-of-type(1) { fill: #21808D; }
-  .tremor-DonutChart path:nth-of-type(2) { fill: #A84B2F; }
-  .tremor-DonutChart path:nth-of-type(3) { fill: #5E5240; }
-  .tremor-DonutChart path:nth-of-type(4) { fill: #FCFCF9; }
-  .tremor-DonutChart path:nth-of-type(5) { fill: #13343B; }
-  .tremor-DonutChart path:nth-of-type(6) { fill: #9B8A7A; }
-  .tremor-DonutChart path:nth-of-type(7) { fill: #D4C5A9; }
+  /* DonutChart - couleurs chaudes harmonisées */
+  .tremor-DonutChart path:nth-of-type(1) { fill: rgba(168, 75, 47, 1); }
+  .tremor-DonutChart path:nth-of-type(2) { fill: rgba(107, 83, 68, 1); }
+  .tremor-DonutChart path:nth-of-type(3) { fill: rgba(230, 129, 97, 1); }
+  .tremor-DonutChart path:nth-of-type(4) { fill: rgba(94, 82, 64, 1); }
+  .tremor-DonutChart path:nth-of-type(5) { fill: rgba(192, 138, 122, 1); }
+  .tremor-DonutChart path:nth-of-type(6) { fill: rgba(155, 138, 122, 1); }
+  .tremor-DonutChart path:nth-of-type(7) { fill: rgba(212, 197, 169, 1); }
 
   /* Textes Tremor - styles minimaux pour performance */
   .tremor-ChartContainer svg text,

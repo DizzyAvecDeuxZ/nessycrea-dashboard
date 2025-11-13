@@ -11,34 +11,66 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          teal: 'rgb(33, 128, 141)',      // Teal exact du site
-          brown: 'rgb(107, 83, 68)',       // Brown exact du logo
-          beige: 'rgb(245, 241, 237)',     // Background beige du site
-          cream: 'rgb(252, 252, 249)',     // Cream du site
-          orange: 'rgb(168, 75, 47)',      // Orange du site
+          // Primitive colors from main site
+          teal: {
+            300: 'rgba(50, 184, 198, 1)',
+            400: 'rgba(45, 166, 178, 1)',
+            500: 'rgba(33, 128, 141, 1)',
+            600: 'rgba(29, 116, 128, 1)',
+            700: 'rgba(26, 104, 115, 1)',
+            800: 'rgba(41, 150, 161, 1)',
+          },
+          brown: {
+            600: 'rgba(94, 82, 64, 1)',
+          },
+          slate: {
+            500: 'rgba(98, 108, 113, 1)',
+            900: 'rgba(19, 52, 59, 1)',
+          },
+          cream: {
+            50: 'rgba(252, 252, 249, 1)',
+            100: 'rgba(255, 255, 253, 1)',
+          },
+          gray: {
+            200: 'rgba(245, 245, 245, 1)',
+            300: 'rgba(167, 169, 169, 1)',
+            400: 'rgba(119, 124, 124, 1)',
+          },
+          charcoal: {
+            700: 'rgba(31, 33, 33, 1)',
+            800: 'rgba(38, 40, 40, 1)',
+          },
+          red: {
+            400: 'rgba(255, 84, 89, 1)',
+            500: 'rgba(192, 21, 47, 1)',
+          },
+          orange: {
+            400: 'rgba(230, 129, 97, 1)',
+            500: 'rgba(168, 75, 47, 1)',
+          },
         },
         dashboard: {
-          // Order status colors (vraies couleurs NessyCrea)
-          delivered: '#22C55E',
-          shipped: '#21808D',
-          processing: '#E68161',
-          pending: '#F59E0B',
-          cancelled: '#C0152F',
-          failed: '#C0152F',
+          // Order status colors - palette marron/orange chaud
+          delivered: 'rgba(107, 83, 68, 1)',    // Marron
+          shipped: 'rgba(168, 75, 47, 1)',      // Orange
+          processing: 'rgba(230, 129, 97, 1)',  // Orange clair
+          pending: 'rgba(212, 197, 169, 1)',    // Beige
+          cancelled: 'rgba(192, 21, 47, 1)',    // Rouge
+          failed: 'rgba(192, 21, 47, 1)',       // Rouge
 
-          // Chart colors - vraies couleurs du site
-          revenue: '#21808D',
-          grid: '#F5F5F5',
+          // Chart colors - orange/marron
+          revenue: 'rgba(168, 75, 47, 1)',
+          grid: 'rgba(245, 245, 245, 1)',
 
-          // Product colors
-          stockHigh: '#22C55E',
-          stockMedium: '#F59E0B',
-          stockLow: '#C0152F',
+          // Product colors - tons chauds
+          stockHigh: 'rgba(107, 83, 68, 1)',    // Marron (bon stock)
+          stockMedium: 'rgba(168, 75, 47, 1)',  // Orange (moyen)
+          stockLow: 'rgba(192, 21, 47, 1)',     // Rouge (bas)
 
-          // Trend colors
-          up: '#22C55E',
-          down: '#C0152F',
-          neutral: '#626C71',
+          // Trend colors - orange/marron
+          up: 'rgba(107, 83, 68, 1)',
+          down: 'rgba(192, 21, 47, 1)',
+          neutral: 'rgba(155, 138, 122, 1)',
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
