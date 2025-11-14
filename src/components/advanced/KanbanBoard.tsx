@@ -177,7 +177,7 @@ export function KanbanBoard({
       {columns.map((column) => (
         <div
           key={column.id}
-          className="flex-shrink-0 w-72 bg-muted/30 rounded-lg p-4 min-h-[500px]"
+          className="flex-shrink-0 w-64 sm:w-72 md:w-80 lg:w-72 bg-muted/30 rounded-lg p-3 sm:p-4 min-h-[400px] sm:min-h-[500px]"
         >
           <div className="flex items-center gap-2 mb-4">
             <div className={cn("rounded-full p-1.5", column.color)}>

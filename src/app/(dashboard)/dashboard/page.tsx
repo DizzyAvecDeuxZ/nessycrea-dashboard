@@ -124,7 +124,7 @@ function KPICard({ title, value, icon, badge, subtitle, trend, progress, info, v
             )}
           </div>
 
-          <p className={`text-3xl font-bold ${styles.value} mb-2 transition-colors duration-300`}>
+          <p className={`text-2xl sm:text-3xl font-bold ${styles.value} mb-2 transition-colors duration-300`}>
             {typeof value === 'number' ? (
               <NumberTicker value={value} />
             ) : typeof value === 'string' ? (
@@ -216,10 +216,10 @@ export default function Dashboard() {
     <div className="space-y-6 animate-slide-in">
       {/* Page Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-foreground mb-2">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2">
           <FadeInText text="Dashboard" delay={0.1} />
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-sm sm:text-base text-muted-foreground">
           <FadeInText text="Vue d'ensemble de votre activité NessyCrea" delay={0.2} />
         </p>
       </div>

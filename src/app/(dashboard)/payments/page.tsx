@@ -295,7 +295,7 @@ export default function PaymentsPage() {
 
           {/* Status Filter */}
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px]">
               <SelectValue placeholder="Statut" />
             </SelectTrigger>
             <SelectContent>
@@ -309,7 +309,7 @@ export default function PaymentsPage() {
 
           {/* Provider Filter */}
           <Select value={providerFilter} onValueChange={setProviderFilter}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px]">
               <SelectValue placeholder="Fournisseur" />
             </SelectTrigger>
             <SelectContent>
@@ -323,20 +323,21 @@ export default function PaymentsPage() {
       </Card>
 
       {/* Payments Table */}
-      <Card>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[150px]">Transaction ID</TableHead>
-              <TableHead className="w-[150px]">Client</TableHead>
-              <TableHead className="w-[120px]">Commande</TableHead>
-              <TableHead className="w-[120px]">Montant</TableHead>
-              <TableHead className="w-[100px]">Fournisseur</TableHead>
-              <TableHead className="w-[120px]">Statut</TableHead>
-              <TableHead className="w-[150px]">Date</TableHead>
-              <TableHead className="w-[50px]"></TableHead>
-            </TableRow>
-          </TableHeader>
+      <Card className="overflow-hidden">
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[150px] min-w-[150px]">Transaction ID</TableHead>
+                <TableHead className="w-[150px] min-w-[150px]">Client</TableHead>
+                <TableHead className="w-[120px] min-w-[120px]">Commande</TableHead>
+                <TableHead className="w-[120px] min-w-[120px]">Montant</TableHead>
+                <TableHead className="w-[100px] min-w-[100px]">Fournisseur</TableHead>
+                <TableHead className="w-[120px] min-w-[120px]">Statut</TableHead>
+                <TableHead className="w-[150px] min-w-[150px]">Date</TableHead>
+                <TableHead className="w-[50px] min-w-[50px]"></TableHead>
+              </TableRow>
+            </TableHeader>
           <TableBody>
             {filteredPayments.length === 0 ? (
               <TableRow>
@@ -406,7 +407,8 @@ export default function PaymentsPage() {
               ))
             )}
           </TableBody>
-        </Table>
+          </Table>
+        </div>
       </Card>
 
       {/* Results Count */}
